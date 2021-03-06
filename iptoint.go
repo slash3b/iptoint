@@ -4,16 +4,10 @@ import (
 	"net"
 )
 
-func Ipv4ToInt(ipString string) int {
-	ip := net.ParseIP(ipString)
+func IpToInt(ip net.IP) int {
+	if ipv4 := ip.To4(); ipv4 != nil {
+		return int(ipv4[0])<<24 | int(ipv4[1])<<16 | int(ipv4[2])<<8 | int(ipv4[3])
+	}
 
-	res := ip.To4()
-	var output int
-
-	output = int(res[0]) << 24
-	output += int(res[1]) << 16
-	output += int(res[2]) << 8
-	output += int(res[3])
-
-	return output
+	return 0
 }

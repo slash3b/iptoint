@@ -2,6 +2,8 @@ package iptoint_test
 
 import (
 	"github.com/slash3b/iptoint"
+	"github.com/stretchr/testify/assert"
+	"net"
 	"testing"
 )
 
@@ -20,10 +22,7 @@ func TestIpv4ToInt(t *testing.T) {
 
 	for _, tt := range testTable {
 		t.Run(tt.testName, func(t *testing.T) {
-			result := iptoint.Ipv4ToInt(tt.input)
-			if result != tt.output {
-				t.Errorf("actual %d is not equal expected %d \n", result, tt.output)
-			}
+			assert.Equal(t, iptoint.IpToInt(net.ParseIP(tt.input)), tt.output)
 		})
 	}
 }
